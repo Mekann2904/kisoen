@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ネットワーク計測アプリ</title>
+  <!-- Bootstrap / Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <!-- あなたのグローバルCSS -->
+  <link rel="stylesheet" href="sample/global.css">
+</head>
+<body class="bg-light">
+  <!-- ナビゲーションバー -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="#">ネットワーク計測アプリ</a>
+      <div class="ms-auto">
+        <!-- テーマ切り替え -->
+        <select class="form-select form-select-sm" id="theme-selector">
+          <option value="blue" selected>Blue Theme</option>
+          <option value="green">Green Theme</option>
+          <option value="purple">Purple Theme</option>
+          <option value="orange">Orange Theme</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container my-5">
+    <!-- メインコンテンツを横中央寄せ -->
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <!-- 計測フォーム -->
+        <div class="card shadow">
+          <div class="card-header bg-white">
+            <h2 class="h4 mb-0">計測パラメータ設定</h2>
+          </div>
+          <div class="card-body">
+            <form id="measurement-form" class="needs-validation" novalidate>
+              <div class="mb-3">
+                <label for="target-address" class="form-label">宛先アドレス</label>
+                <input type="text" class="form-control" id="target-address" required>
+                <div class="invalid-feedback">
+                  宛先アドレスを入力してください
+                </div>
+              </div>
+              <div class="mb-4">
+                <label for="measurement-count" class="form-label">計測回数</label>
+                <input type="number" class="form-control" id="measurement-count" min="1" required>
+                <div class="invalid-feedback">
+                  1回以上の計測回数を指定してください
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                計測開始
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <!-- 計測中スピナー -->
+        <div id="loading-spinner" class="text-center my-4" style="display: none;">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">計測中...</span>
+          </div>
+          <p class="mt-2">計測中です。しばらくお待ちください...</p>
+        </div>
+
+        <!-- 計測結果カード -->
+        <div class="card shadow mt-4" id="results" style="display: none;">
+          <div class="card-header bg-white">
+            <h2 class="h4 mb-0">計測結果</h2>
+          </div>
+          <div class="card-body">
+            <div class="d-flex justify-content-end mb-3">
+              <button id="export-btn" class="btn btn-sm btn-outline-secondary">
+                <i class="bi bi-download"></i> CSVでエクスポート
+              </button>
+            </div>
+            <div class="row">
+              <div class="col-md-6 mb-4 mb-md-0">
+                <div class="table-responsive">
+                  <table class="table table-striped" id="results-table">
+                    <thead>
+                      <tr>
+                        <th>計測回数</th>
+                        <th>スループット (Mbps)</th>
+                        <th>遅延 (ms)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- JSで動的に追加 -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <canvas id="throughput-chart"></canvas>
+              </div>
+            </div>
+          </div>
+        </div><!-- /resultsカード -->
+
+      </div><!-- /col-lg-8 -->
+    </div><!-- /row -->
+  </main>
+
+  <!-- フッター -->
+  <footer class="bg-white py-3 border-top">
+    <div class="container text-center">
+      <p class="mb-0 text-muted small">&copy; 2025 ネットワーク計測アプリ</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap / Chart.js / あなたのJS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
